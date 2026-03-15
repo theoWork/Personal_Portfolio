@@ -27,8 +27,8 @@ export function useTechStack() {
       skills: [
         { name: 'Node.js', category: 'backend' },
         { name: 'Python', category: 'backend' },
-        { name: 'PostgreSQL', category: 'backend' },
-        { name: 'MongoDB', category: 'backend' },
+        { name: 'SQLite3', category: 'backend' },
+        { name: 'Django', category: 'backend' },
         { name: 'Express.js', category: 'backend' }
       ]
     },
@@ -36,9 +36,6 @@ export function useTechStack() {
       title: 'Tools & DevOps',
       skills: [
         { name: 'Git', category: 'tools' },
-        { name: 'Docker', category: 'tools' },
-        { name: 'AWS', category: 'tools' },
-        { name: 'Vercel', category: 'tools' },
         { name: 'Figma', category: 'tools' }
       ]
     },
@@ -47,8 +44,8 @@ export function useTechStack() {
       skills: [
         { name: 'UI/UX Design', category: 'other' },
         { name: 'REST APIs', category: 'other' },
-        { name: 'GraphQL', category: 'other' },
-        { name: 'Testing', category: 'other' }
+        { name: 'Video Editing', category: 'other' }, 
+        { name: 'Photography', category: 'other' }
       ]
     }
   ])

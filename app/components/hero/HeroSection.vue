@@ -65,7 +65,7 @@
 
       <!-- CTA Button -->
       <div class="mt-64 animate-fadeIn delay-400">
-        <a href="/projects" class="inline-block">
+        <a href="#projects" class="inline-block">
           <button class="bg-soft-amber text-neutral-900 px-8 py-4 rounded-lg hover:bg-warm-terra transition">
             Explore Projects
           </button>
