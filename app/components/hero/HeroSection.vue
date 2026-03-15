@@ -1,17 +1,20 @@
 <template>
   <section
+    id="hero"
     ref="hero"
     class="relative min-h-screen flex flex-col justify-center items-center px-8 md:px-16 lg:px-32 overflow-hidden bg-neutral-900"
     @mousemove="spawnRipple"
   >
     <!-- SVG Mask Layer -->
-    <svg class="absolute inset-0 w-full h-full">
+    <svg class="absolute inset-0 w-full h-full pointer-events-none">
       <defs>
         <mask id="text-mask">
           <rect width="100%" height="100%" fill="black" />
+
+          <!-- Main Name -->
           <text
             x="50%"
-            y="50%"
+            y="45%"
             text-anchor="middle"
             dominant-baseline="middle"
             font-size="8vw"
@@ -19,6 +22,19 @@
             fill="white"
           >
             Theo Pacs
+          </text>
+
+          <!-- Small "friend name" line -->
+          <text
+            x="50%"
+            y="60%"
+            text-anchor="middle"
+            dominant-baseline="middle"
+           font-size="1.5vw"
+            font-weight="medium"
+            fill="white"
+          >
+            or Yong if we're friends
           </text>
         </mask>
       </defs>
@@ -39,83 +55,39 @@
 
     <!-- Hero content -->
     <div class="relative z-10 text-center text-neutral-100">
+      <!-- Intro line -->
       <p class="text-lg md:text-xl opacity-90 animate-fadeIn delay-200">
-        something something dawgs
+        They call me …
       </p>
-      <div class="mt-48 animate-fadeIn delay-400">
-        <button class="bg-soft-amber text-neutral-900 px-6 py-3 rounded-lg hover:bg-warm-terra transition">
-          Explore Projects
-        </button>
+
+      <!-- Spacing so ripples are centered nicely -->
+      <div class="mt-32"></div>
+
+      <!-- CTA Button -->
+      <div class="mt-64 animate-fadeIn delay-400">
+        <a href="/projects" class="inline-block">
+          <button class="bg-soft-amber text-neutral-900 px-8 py-4 rounded-lg hover:bg-warm-terra transition">
+            Explore Projects
+          </button>
+        </a>
       </div>
     </div>
   </section>
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue"
+import { ref } from "vue"
+import { useRippleEffect } from '~/composables/useRippleEffect'
 
 const hero = ref(null)
-const ripples = ref([])
-let idCounter = 0
 
-function spawnRipple(e) {
-  // get SVG coordinates relative to hero
-  const rect = hero.value.getBoundingClientRect()
-  const x = e.clientX - rect.left
-  const y = e.clientY - rect.top
-
-  // create ripple object
-  const ripple = {
-    id: idCounter++,
-    x,
-    y,
-    radius: 0,
-    opacity: 0.4
-  }
-
-  ripples.value.push(ripple)
-
-  // animate ripple growth
-  const duration = 2000 // 2s
-  const maxRadius = 100 + Math.random() * 50 // randomize size a bit
-  const start = performance.now()
-
-  function animate(time) {
-    const elapsed = time - start
-    const progress = Math.min(elapsed / duration, 1)
-
-    ripple.radius = maxRadius * progress
-    ripple.opacity = 0.4 * (1 - progress)
-
-    // Ensure radius never goes negative
-    if (ripple.radius < 0) ripple.radius = 0
-
-    if (progress < 1) {
-      requestAnimationFrame(animate)
-    } else {
-      // remove finished ripple
-      const index = ripples.value.findIndex((r) => r.id === ripple.id)
-      if (index > -1) ripples.value.splice(index, 1)
-    }
-  }
-
-  requestAnimationFrame(animate)
-}
-
-// clear ripples when hero scrolls out of view
-onMounted(() => {
-  const observer = new IntersectionObserver(
-    ([entry]) => {
-      if (!entry.isIntersecting) ripples.value = []
-    },
-    { threshold: 0 }
-  )
-  if (hero.value) observer.observe(hero.value)
-})
+// Use composables
+const { ripples, spawnRipple } = useRippleEffect(hero)
 </script>
 
 <style scoped>
 .ripple {
   fill: #fcd34d; /* soft amber */
+  vector-effect: non-scaling-stroke; /* ensures crisp circles */
 }
 </style>

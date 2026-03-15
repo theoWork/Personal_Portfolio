@@ -1,0 +1,26 @@
+html {
+  scroll-behavior: smooth;
+}
+
+/* Optional: Add smooth scrolling for all browsers */
+* {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar styling for webkit browsers */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1f2937; /* neutral-800 */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #fcd34d; /* soft-amber */
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #f59e0b; /* warm-terra */
+}
