@@ -40,7 +40,7 @@
     <!-- Hero content -->
     <div class="relative z-10 text-center text-neutral-100">
       <p class="text-lg md:text-xl opacity-90 animate-fadeIn delay-200">
-        something something nigga dawgs
+        something something dawgs
       </p>
       <div class="mt-48 animate-fadeIn delay-400">
         <button class="bg-soft-amber text-neutral-900 px-6 py-3 rounded-lg hover:bg-warm-terra transition">
