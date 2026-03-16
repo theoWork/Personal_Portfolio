@@ -4,6 +4,7 @@
     ref="hero"
     class="relative min-h-screen flex flex-col justify-center items-center px-8 md:px-16 lg:px-32 overflow-hidden bg-neutral-900"
     @mousemove="spawnRipple"
+    @touchmove="handleTouchMove"
   >
     <!-- SVG Mask Layer -->
     <svg class="absolute inset-0 w-full h-full pointer-events-none">
@@ -83,6 +84,10 @@ const hero = ref(null)
 
 // Use composables
 const { ripples, spawnRipple } = useRippleEffect(hero)
+
+const handleTouchMove = (e) => {
+  spawnRipple(e)
+}
 </script>
 
 <style scoped>

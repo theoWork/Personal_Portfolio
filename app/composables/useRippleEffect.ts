@@ -18,12 +18,24 @@ export function useRippleEffect(element: Ref<HTMLElement | null>) {
     return t * (2 - t)
   }
 
-  const spawnRipple = (e: MouseEvent) => {
+  const spawnRipple = (e: MouseEvent | TouchEvent) => {
     if (!element.value) return
 
     const rect = element.value.getBoundingClientRect()
-    const x = e.clientX - rect.left
-    const y = e.clientY - rect.top
+    let x: number, y: number
+    
+    if ('touches' in e) {
+      // Touch event
+      if (e.touches.length === 0) return
+      const touch = e.touches[0]
+      if (!touch) return
+      x = touch.clientX - rect.left
+      y = touch.clientY - rect.top
+    } else {
+      // Mouse event
+      x = e.clientX - rect.left
+      y = e.clientY - rect.top
+    }
 
     const ripple: Ripple = {
       id: idCounter++,
@@ -71,6 +83,26 @@ export function useRippleEffect(element: Ref<HTMLElement | null>) {
     observer.observe(element.value)
   })
 
+  return {
+    ripples,
+    spawnRipple
+  }
+}
+
+// Touch event handler wrapper
+export function useTouchRippleEffect(element: Ref<HTMLElement | null>) {
+  const { ripples, spawnRipple } = useRippleEffect(element)
+  
+  const handleTouchMove = (e: TouchEvent) => {
+    e.preventDefault() // Prevent scrolling during ripple effect
+    spawnRipple(e)
+  }
+  
+  onMounted(() => {
+    if (!element.value) return
+    element.value.addEventListener('touchmove', handleTouchMove, { passive: false })
+  })
+  
   return {
     ripples,
     spawnRipple

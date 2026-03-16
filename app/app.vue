@@ -7,11 +7,13 @@
         <NuxtPage />
       </NuxtLayout>
     </main>
+    <WaveFooter />
   </div>
 </template>
 
 <script setup>
 import Navbar from '~/components/navigation/Navbar.vue'
+import WaveFooter from '~/components/WaveFooter.vue'
 </script>
 
 <style>
